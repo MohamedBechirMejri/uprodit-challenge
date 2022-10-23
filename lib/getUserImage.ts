@@ -6,13 +6,11 @@ const getUserImage = async (id: string) => {
   const ENV = process.env.NEXT_PUBLIC_UPRODIT_ENV;
   const API = process.env.NEXT_PUBLIC_UPRODIT_API;
 
-  return await axios.get(`https://${API}/v2/profile/picture/f/${id}`, {
+  const url = `https://${API}/v2/profile/picture/f/${id}`;
+
+  return await axios.get(url, {
     headers: {
-      Authorization: generateSignature(
-        APPID!,
-        ENV!,
-        `https://${API}/v2/profile/picture/f/${id}`
-      ),
+      Authorization: generateSignature(APPID!, ENV!, url),
     },
   });
 };

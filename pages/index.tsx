@@ -33,7 +33,7 @@ const Home: NextPage = () => {
       const imageData = await (await getUserImage(image.id)).data.b64Content;
       image.src = imageData
         ? "data:image/png;base64, " + imageData
-        : "https://picsum.photos/500";
+        : "/freelance.svg";
     });
   }, [users]);
 

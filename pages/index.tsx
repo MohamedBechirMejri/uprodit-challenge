@@ -4,9 +4,11 @@ import generateSignature from "../lib/generateSignature";
 import { useState, useEffect, useCallback, useRef } from "react";
 import getUserImage from "../lib/getUserImage";
 import debounce from "../lib/debounce";
+import { L5, L74 } from "react-isloading";
 
 const Home: NextPage = () => {
   const [users, setUsers] = useState([]);
+  const [usersImages, setUsersImages] = useState({}) as any;
   const [startIndex, setStartIndex] = useState(0);
   const [maxResults, setMaxResults] = useState(10);
   const [isLoading, setIsLoading] = useState(true);
@@ -53,14 +55,18 @@ const Home: NextPage = () => {
   useEffect(() => handleSearch(""), []); // show users on page load
 
   useEffect(() => {
-    document.querySelectorAll(".user-image").forEach(async (image: any) => {
-      const imageData = await (await getUserImage(image.id)).data.b64Content;
-      imageData && (image.src = "data:image/png;base64, " + imageData);
+    users.forEach(async (user: any) => {
+      const id = user.image_id;
+      const imageData = await (await getUserImage(id)).data.b64Content;
+      setUsersImages((images: any) => ({
+        ...images,
+        [id]: imageData,
+      }));
     });
   }, [users]);
 
   return (
-    <div className="flex flex-col items-center gap-8 p-8">
+    <div className="flex flex-col items-center gap-8 p-8 bg-[#f3f5f8] min-h-screen">
       <h1 className="w-full text-4xl font-bold text-center ">
         Uprodit Search API Test
       </h1>
@@ -76,24 +82,42 @@ const Home: NextPage = () => {
       />
 
       {isLoading ? (
-        "loading"
+        <L74
+          style={{
+            height: "15rem",
+            width: "15rem",
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
+        />
       ) : !users.length ? (
-        "No Result"
+        <h1 className="pb-12 m-auto text-2xl">No Result</h1>
       ) : (
         <>
-          <div className="grid grid-cols-4 gap-8 bg-[#f3f5f8]">
+          <div className="flex flex-wrap grid-cols-4 gap-8 ">
             {users.map((user: any, i: number) => (
               <div
                 key={user.id}
-                className="bg-white rounded-lg opacity-0 animate-reveal"
+                className="w-56 bg-white rounded-lg opacity-0 animate-reveal"
                 style={{
-                  animationDelay: 0.1 * (i + 1) + "s",
+                  animationDelay: 0.05 * (i + 1) + "s",
                 }}
               >
-                <img
-                  src="/freelance.svg"
+                <div
                   id={user.image_id}
-                  className="w-full rounded-lg user-image"
+                  className="w-56 h-56 bg-center bg-no-repeat bg-cover rounded-lg"
+                  style={{
+                    backgroundImage:
+                      // @ts-ignore
+                      usersImages[user.image_id]
+                        ? "url(data:image/png;base64, " +
+                          // @ts-ignore
+                          usersImages[user.image_id] +
+                          ")"
+                        : "url('/freelance.svg')",
+                  }}
                 />
 
                 <div className="flex flex-col gap-4 p-2">

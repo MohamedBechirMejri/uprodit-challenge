@@ -9,6 +9,7 @@ const Home: NextPage = () => {
   const [users, setUsers] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
   const [maxResults, setMaxResults] = useState(10);
+  const [isLoading, setIsLoading] = useState(true);
 
   const inputRef = useRef(null);
 
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
         })
         .then(res => {
           setUsers(res.data);
+          setIsLoading(false);
         });
     }, 500),
     []
@@ -43,8 +45,9 @@ const Home: NextPage = () => {
         ? startIndex + maxResults
         : startIndex - maxResults;
 
-    setStartIndex(newStartIndex);
     handleSearch(query, newStartIndex);
+    setIsLoading(true);
+    setStartIndex(newStartIndex);
   };
 
   useEffect(() => handleSearch(""), []); // show users on page load
@@ -64,37 +67,57 @@ const Home: NextPage = () => {
       <input
         ref={inputRef}
         type="search"
-        onChange={e => handleSearch(e.target.value)}
+        onChange={e => {
+          setIsLoading(true)
+          handleSearch(e.target.value);
+        }}
         placeholder="Search Freelancers (Specialties, Skills...)"
         className="w-full h-12 font-bold text-center transition-all rounded-lg outline-none"
       />
 
-      <div>
-        <button onClick={() => startIndex && handleNavigation("previous")}>
-          Previous
-        </button>
-        <button onClick={() => handleNavigation("next")}>Next</button>
-      </div>
+      {isLoading ? (
+        "loading"
+      ) : !users.length ? (
+        "No Result"
+      ) : (
+        <>
+          <div className="grid grid-cols-4 gap-8 bg-[#f3f5f8]">
+            {users.map((user: any) => (
+              <div key={user.id} className="bg-white rounded-lg ">
+                <img
+                  src="/freelance.svg"
+                  id={user.image_id}
+                  className="w-full rounded-lg user-image"
+                />
 
-      <div className="grid grid-cols-4 gap-8 bg-[#f3f5f8]">
-        {users.map((user: any) => (
-          <div key={user.id} className="bg-white rounded-lg ">
-            <img
-              src="/freelance.svg"
-              id={user.image_id}
-              className="w-full rounded-lg user-image"
-            />
-
-            <div className="flex flex-col gap-4 p-2">
-              <p className="w-full font-medium text-center">
-                {user.denomination}
-              </p>
-              <p className="w-full"> Specialized in :</p>
-              <p className="w-full">{user.specialities.join(" / ")}</p>
-            </div>
+                <div className="flex flex-col gap-4 p-2">
+                  <p className="w-full font-medium text-center">
+                    {user.denomination}
+                  </p>
+                  <p className="w-full"> Specialized in :</p>
+                  <p className="w-full">{user.specialities.join(" / ")}</p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+          <div className="flex gap-4">
+            <button
+              className={`transition-all p-2 px-4 font-semibold text-white bg-slate-500 rounded ${
+                !startIndex && "bg-gray-300 text-gray-600 cursor-not-allowed"
+              }`}
+              onClick={() => startIndex && handleNavigation("previous")}
+            >
+              Previous
+            </button>
+            <button
+              className="p-2 px-4 font-semibold text-white transition-all rounded bg-slate-500"
+              onClick={() => handleNavigation("next")}
+            >
+              Next
+            </button>
+          </div>
+        </>
+      )}
     </div>
   );
 };

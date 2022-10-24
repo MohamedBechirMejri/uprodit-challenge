@@ -55,14 +55,6 @@ const Home: NextPage = () => {
   useEffect(() => handleSearch(""), []); // show users on page load
 
   useEffect(() => {
-    Object.entries(usersImages).forEach(([id, data]) => {
-      const image = document.getElementById(id);
-      if (image && data)
-        image!.style.backgroundImage = `url(data:image/png;base64,${data})`;
-    });
-  }, [usersImages]);
-
-  useEffect(() => {
     users.forEach(async (user: any) => {
       const id = user.image_id;
       const imageData = await (await getUserImage(id)).data.b64Content;
@@ -72,6 +64,14 @@ const Home: NextPage = () => {
       }));
     });
   }, [users]);
+
+  useEffect(() => {
+    Object.entries(usersImages).forEach(([id, data]) => {
+      const image = document.getElementById(id);
+      if (image && data)
+        image!.style.backgroundImage = `url(data:image/png;base64,${data})`;
+    });
+  }, [usersImages]);
 
   return (
     <div className="flex flex-col items-center gap-8 p-8 bg-[#f3f5f8] min-h-screen">
@@ -121,11 +121,12 @@ const Home: NextPage = () => {
                   }}
                 />
 
-                <div className="flex flex-col gap-4 p-4 text-[#919ca7]">
+                <div className="flex flex-col p-4 text-[#919ca7]">
                   <p className="w-full font-bold text-center">
                     {user.denomination}
                   </p>
-                  <p className="w-full"> Specialized in :</p>
+                  <p className="text-center">⭐ {user.stars_count}</p>
+                  <p className="w-full pt-4 pb-2"> Specialized in :</p>
                   <p className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
                     {user.specialities.join(" / ")}
                   </p>

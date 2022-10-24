@@ -49,3 +49,7 @@
   # or
   npm run dev
   ```
+
+<h2 style='width:100%;text-align:center'>Notes</h2>
+
+The challenge is by [uprodit](https://doc.uprodit.com/docs/challenge/), a simple search engine that can be created in a couple of hours with very advanced features IF THE API AND DOCS WERE USABLE. the api needs to be remade and the docs aren't useful.

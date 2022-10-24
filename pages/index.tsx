@@ -40,14 +40,16 @@ const Home: NextPage = () => {
   }, [users]);
 
   return (
-    <div>
-      <div className="w-full p-2">
-        <input
-          type="search"
-          onChange={handleSearch}
-          className="w-full h-12 font-bold text-center rounded-lg outline-none ring-gray-600 ring"
-        />
-      </div>
+    <div className="flex flex-col items-center gap-8 p-8">
+      <h1 className="w-full text-4xl font-bold text-center ">
+        Uprodit Search API Test
+      </h1>
+      <input
+        type="search"
+        onChange={handleSearch}
+        placeholder="Search Freelancers (Specialties, Skills...)"
+        className="w-full h-12 font-bold text-center transition-all rounded-lg outline-none"
+      />
 
       <div className="grid grid-cols-4 gap-8 bg-[#f3f5f8]">
         {users.map((user: any) => (

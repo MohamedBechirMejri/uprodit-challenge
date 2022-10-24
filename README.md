@@ -18,7 +18,7 @@
 
 <h3 style='width:100%;text-align:center'>
 
-[Demo](https://odinbook-next.vercel.app)
+[Demo](https://uprodit-challenge.vercel.app/)
 
 </h3>
 

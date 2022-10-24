@@ -104,34 +104,36 @@ const Home: NextPage = () => {
         <h1 className="pb-12 m-auto text-2xl">No Result</h1>
       ) : (
         <>
-          <div className="flex flex-wrap grid-cols-4 gap-8 ">
+          <div className="flex flex-wrap justify-center grid-cols-4 gap-8">
             {users.map((user: any, i: number) => (
               <div
                 key={user.id}
-                className="w-56 bg-white rounded-lg opacity-0 animate-reveal"
+                className="w-64 bg-white rounded-lg opacity-0 cursor-pointer animate-reveal"
                 style={{
                   animationDelay: 0.05 * (i + 1) + "s",
                 }}
               >
                 <div
                   id={user.image_id}
-                  className="w-56 h-56 bg-center bg-no-repeat bg-cover rounded-lg"
+                  className="w-64 h-64 bg-center bg-no-repeat bg-cover rounded-lg"
                   style={{
                     backgroundImage: "url('/freelance.svg')",
                   }}
                 />
 
-                <div className="flex flex-col gap-4 p-2">
-                  <p className="w-full font-medium text-center">
+                <div className="flex flex-col gap-4 p-4 text-[#919ca7]">
+                  <p className="w-full font-bold text-center">
                     {user.denomination}
                   </p>
                   <p className="w-full"> Specialized in :</p>
-                  <p className="w-full">{user.specialities.join(" / ")}</p>
+                  <p className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
+                    {user.specialities.join(" / ")}
+                  </p>
                 </div>
               </div>
             ))}
           </div>
-          <div className="flex gap-4">
+          <div className="flex gap-4 py-8">
             <button
               className={`transition-all p-2 px-4 font-semibold text-white bg-slate-500 rounded ${
                 !startIndex && "bg-gray-300 text-gray-600 cursor-not-allowed"

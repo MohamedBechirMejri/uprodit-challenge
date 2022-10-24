@@ -55,6 +55,14 @@ const Home: NextPage = () => {
   useEffect(() => handleSearch(""), []); // show users on page load
 
   useEffect(() => {
+    Object.entries(usersImages).forEach(([id, data]) => {
+      const image = document.getElementById(id);
+      if (image && data)
+        image!.style.backgroundImage = `url(data:image/png;base64,${data})`;
+    });
+  }, [usersImages]);
+
+  useEffect(() => {
     users.forEach(async (user: any) => {
       const id = user.image_id;
       const imageData = await (await getUserImage(id)).data.b64Content;
@@ -109,14 +117,7 @@ const Home: NextPage = () => {
                   id={user.image_id}
                   className="w-56 h-56 bg-center bg-no-repeat bg-cover rounded-lg"
                   style={{
-                    backgroundImage:
-                      // @ts-ignore
-                      usersImages[user.image_id]
-                        ? "url(data:image/png;base64, " +
-                          // @ts-ignore
-                          usersImages[user.image_id] +
-                          ")"
-                        : "url('/freelance.svg')",
+                    backgroundImage: "url('/freelance.svg')",
                   }}
                 />
 

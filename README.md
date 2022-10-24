@@ -1,27 +1,51 @@
-# Next.js + Tailwind CSS Example
+<h1 style='width:100%;text-align:center'>Uprodit Challenge</h1>
 
-This example shows how to use [Tailwind CSS](https://tailwindcss.com/) [(v3.0)](https://tailwindcss.com/blog/tailwindcss-v3) with Next.js. It follows the steps outlined in the official [Tailwind docs](https://tailwindcss.com/docs/guides/nextjs).
+<p style='width:100%;text-align:center'> A simple tech assessment project</p>
 
-## Deploy your own
+<h2 style='width:100%;text-align:center'>Technologies Used</h2>
 
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example) or preview live with [StackBlitz](https://stackblitz.com/github/vercel/next.js/tree/canary/examples/with-tailwindcss)
+<div style='display:flex;flex-wrap:wrap;justify-content:center;width:100%;'>
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-tailwindcss&project-name=with-tailwindcss&repository-name=with-tailwindcss)
+![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white)![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-## How to use
+</div>
 
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init), [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/), or [pnpm](https://pnpm.io) to bootstrap the example:
+<h2 style='width:100%;text-align:center'>Features</h2>
 
-```bash
-npx create-next-app --example with-tailwindcss with-tailwindcss-app
-```
+- [x] Simple search bar using REST API
+- [ ] autocomplete (need better docs)
+- [ ] filter (need better docs)
 
-```bash
-yarn create next-app --example with-tailwindcss with-tailwindcss-app
-```
+<h3 style='width:100%;text-align:center'>
 
-```bash
-pnpm create next-app --example with-tailwindcss with-tailwindcss-app
-```
+[Demo](https://odinbook-next.vercel.app)
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+</h3>
+
+<h2 style='width:100%;text-align:center'>How To Use</h2>
+
+- Clone this Repo
+- Install Dependencies
+
+  ```bash
+  yarn
+  # or
+  npm install
+  ```
+
+- Add `env.local` file in the root folder:
+
+  ```bash
+  NEXT_PUBLIC_UPRODIT_APPID = "challenge_uprodit"
+  NEXT_PUBLIC_UPRODIT_ENV = "production"
+  NEXT_PUBLIC_UPRODIT_API = "api.uprodit.com"
+
+  ```
+
+- Run Development Server
+
+  ```bash
+  yarn dev
+  # or
+  npm run dev
+  ```

@@ -4,7 +4,10 @@ import generateSignature from "../lib/generateSignature";
 import { useState, useEffect, useCallback, useRef } from "react";
 import getUserImage from "../lib/getUserImage";
 import debounce from "../lib/debounce";
-import { L74 } from "react-isloading";
+import Searchbar from "../components/Searchbar";
+import Loader from "../components/Loader";
+import User from "../components/User";
+import NavButtons from "../components/NavButtons";
 
 const Home: NextPage = () => {
   const [users, setUsers] = useState([]);
@@ -78,79 +81,27 @@ const Home: NextPage = () => {
       <h1 className="w-full text-4xl font-bold text-center ">
         Uprodit Search API Test
       </h1>
-      <input
-        ref={inputRef}
-        type="search"
-        onChange={e => {
-          setStartIndex(0);
-          setIsLoading(true);
-          handleSearch(e.target.value);
-        }}
-        placeholder="Search Freelancers (Specialties, Skills...)"
-        className="w-full h-12 font-bold text-center transition-all rounded-lg outline-none"
+      <Searchbar
+        inputRef={inputRef}
+        setStartIndex={setStartIndex}
+        setIsLoading={setIsLoading}
+        handleSearch={handleSearch}
       />
-
       {isLoading ? (
-        <L74
-          style={{
-            height: "15rem",
-            width: "15rem",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-        />
+        <Loader />
       ) : !users.length ? (
         <h1 className="pb-12 m-auto text-2xl">No Result</h1>
       ) : (
         <>
           <div className="flex flex-wrap justify-center grid-cols-4 gap-8">
             {users.map((user: any, i: number) => (
-              <div
-                key={user.id}
-                className="w-64 bg-white rounded-lg opacity-0 cursor-pointer animate-reveal"
-                style={{
-                  animationDelay: 0.05 * (i + 1) + "s",
-                }}
-              >
-                <div
-                  id={user.image_id}
-                  className="w-64 h-64 bg-center bg-no-repeat bg-cover rounded-lg"
-                  style={{
-                    backgroundImage: "url('/freelance.svg')",
-                  }}
-                />
-
-                <div className="flex flex-col p-4 text-[#919ca7]">
-                  <p className="w-full font-bold text-center">
-                    {user.denomination}
-                  </p>
-                  <p className="text-center">⭐ {user.stars_count}</p>
-                  <p className="w-full pt-4 pb-2"> Specialized in :</p>
-                  <p className="w-full overflow-hidden text-ellipsis whitespace-nowrap">
-                    {user.specialities.join(" / ")}
-                  </p>
-                </div>
-              </div>
+              <User key={user.id} user={user} i={i} />
             ))}
           </div>
-          <div className="flex gap-4 py-8">
-            <button
-              className={`transition-all p-2 px-4 font-semibold text-white bg-slate-500 rounded ${
-                !startIndex && "bg-gray-300 text-gray-600 cursor-not-allowed"
-              }`}
-              onClick={() => startIndex && handleNavigation("previous")}
-            >
-              Previous
-            </button>
-            <button
-              className="p-2 px-4 font-semibold text-white transition-all rounded bg-slate-500"
-              onClick={() => handleNavigation("next")}
-            >
-              Next
-            </button>
-          </div>
+          <NavButtons
+            startIndex={startIndex}
+            handleNavigation={handleNavigation}
+          />
         </>
       )}
     </div>

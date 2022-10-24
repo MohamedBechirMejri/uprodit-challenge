@@ -4,7 +4,7 @@ import generateSignature from "../lib/generateSignature";
 import { useState, useEffect, useCallback, useRef } from "react";
 import getUserImage from "../lib/getUserImage";
 import debounce from "../lib/debounce";
-import { L5, L74 } from "react-isloading";
+import { L74 } from "react-isloading";
 
 const Home: NextPage = () => {
   const [users, setUsers] = useState([]);

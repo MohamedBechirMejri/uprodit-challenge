@@ -68,7 +68,7 @@ const Home: NextPage = () => {
         ref={inputRef}
         type="search"
         onChange={e => {
-          setIsLoading(true)
+          setIsLoading(true);
           handleSearch(e.target.value);
         }}
         placeholder="Search Freelancers (Specialties, Skills...)"
@@ -82,8 +82,14 @@ const Home: NextPage = () => {
       ) : (
         <>
           <div className="grid grid-cols-4 gap-8 bg-[#f3f5f8]">
-            {users.map((user: any) => (
-              <div key={user.id} className="bg-white rounded-lg ">
+            {users.map((user: any, i: number) => (
+              <div
+                key={user.id}
+                className="bg-white rounded-lg opacity-0 animate-reveal"
+                style={{
+                  animationDelay: 0.1 * (i + 1) + "s",
+                }}
+              >
                 <img
                   src="/freelance.svg"
                   id={user.image_id}

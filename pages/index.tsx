@@ -82,6 +82,7 @@ const Home: NextPage = () => {
         ref={inputRef}
         type="search"
         onChange={e => {
+          setStartIndex(0);
           setIsLoading(true);
           handleSearch(e.target.value);
         }}
